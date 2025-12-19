@@ -1,5 +1,6 @@
 package com.springBatch.config;
 
+import com.springBatch.config.service.SecondTasklet;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -20,6 +21,8 @@ public class SampleJob {
     private JobBuilderFactory jobBuilderFactory;
     @Autowired
     private StepBuilderFactory stepBuilderFactory;
+    @Autowired
+    private SecondTasklet secondTasklet ;
 
     //        to have job, spring batch provides Job interface
     @Bean
@@ -40,7 +43,7 @@ public class SampleJob {
     private Step secondStep() {
         System.out.println("Inside Second Step");
         return stepBuilderFactory.get("Second Step")
-                .tasklet(secondTask())
+                .tasklet(secondTasklet)
                 .build();
     }
 
@@ -49,17 +52,17 @@ public class SampleJob {
             @Override
             public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
                 System.out.println("This is the first TASKLET Step");
-                return RepeatStatus.FINISHED;
+                return RepeatStatus.FINISHED; // If Continuable, it will run repeatedly
             }
         };
     }
-    private Tasklet secondTask() {
-        return new Tasklet() {
-            @Override
-            public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-                System.out.println("This is the 2nd TASKLET Step");
-                return RepeatStatus.FINISHED;
-            }
-        };
-    }
+//    private Tasklet secondTask() {
+//        return new Tasklet() {
+//            @Override
+//            public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
+//                System.out.println("This is the 2nd TASKLET Step");
+//                return RepeatStatus.FINISHED;
+//            }
+//        };
+//    }
 }
