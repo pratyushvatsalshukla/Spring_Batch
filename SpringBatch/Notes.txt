@@ -1,0 +1,25 @@
+What is Job and Step
+Each transaction is a separate Job.
+Each Job can contain multiple Steps.
+
+               -  Communication With Bank
+             /
+Transaction  --- Debit Money
+             \
+               -  Send Sms / email to Customer
+
+Steps : Can be of Two Types :
+1. Tasklet (Based on Tasks)
+2. Chunks Based ( We hae Item Reader -> Item Processor -> Item Writer)
+
+We use Chunk Based approach when we have high volume of Data
+
+SPRING BATCH ARCHITECTURE
+                           Reader | Processor | Writer
+                                        |
+Job Launcher -> Job -> Steps (Tasklet/Chunk)
+Each of above has connection to Job Repository.
+This Job Repository contains all the Job INformation (metaData)
+Contains infor about Start/End/Error/Exception etc data for each step.
+
+This Job Repository has direct interaction with the Database to access this metadata.
