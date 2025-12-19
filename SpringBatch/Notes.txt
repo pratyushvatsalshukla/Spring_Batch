@@ -23,3 +23,38 @@ This Job Repository contains all the Job INformation (metaData)
 Contains infor about Start/End/Error/Exception etc data for each step.
 
 This Job Repository has direct interaction with the Database to access this metadata.
+
+
+        JOB INSTANCE -|- JOB EXECUTION -|- JOB EXECUTION CONTEXT
+
+In spring batch we have job, Say this job runs on daily basis,
+Lets Say, today is Jan 01 , so today "one" instance is going to run
+on Jan 02, another job instance will run...similarly for other days as well.
+
+so all these instances are Job Instances for that particular Job.
+So, we can say under One Job, there are many Job Instances.
+
+Now, lets say our job runs on every day at 22:00 PM night. So at that time, the instance will execute.
+This will be the Job Execution.
+Job Execution will hold the info when it started, ended etc.
+Spring Batch will store this data as metaData into the database.
+
+If some Job Execution is Successful, then for that Instance, we can not run the Job.
+We can definitely run the job through another instance.
+If the job execution was failed, we can run the same job instance again.
+Actually, we can run another job execution inside the same Job Instance
+This will be comfirmed throught the meta-data stored.
+
+We have 2 execution context in Spring Batch : One is at Job level and another at Step Level.
+
+
+        STEP EXECUTION -|- STEP EXECUTION CONTEXT
+In spring batch a job can hae multiple steps. Once we run our job,  the job execution will get started.
+and now it will come to each and eery step. Each step will start execution in the order specified.
+Each step will have its step execution(with metadata)
+Just like JOb Execution Context we have Step Execution COntext. Its at Step Level.
+If we hae something which can be useful in the step execution, we can pass it to
+Step Execution Context. If you want to pass something between job levels, we goto Job Execution Context.
+Both are Maps. ie data stored in form of key / value pair.
+Job exeution context get stored in Database along with metadata at once for each Job.
+Similarly, Step Execution Context gets stored in DB along with the metadata during each step separately.
