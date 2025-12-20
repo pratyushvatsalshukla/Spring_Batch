@@ -58,3 +58,19 @@ Step Execution Context. If you want to pass something between job levels, we got
 Both are Maps. ie data stored in form of key / value pair.
 Job exeution context get stored in Database along with metadata at once for each Job.
 Similarly, Step Execution Context gets stored in DB along with the metadata during each step separately.
+
+
+Suppose we want to run the same job instance again, we can not do that.
+BEcause that job is already completed.
+So in this case, to run that particular JOb instance again, we will need to tell the
+Spring batch that this is the new execution, not the older one which was completed.
+THis we can do using providing job parameters proided by spring batch.
+Goto run configurations -> pass arguments (key,value) pair.
+
+To avoid doing this manually each time, we can simply use incrementer(new RunIdIncrementer())
+provided by jobBuilderFactory. THis will automatically add one key with run.id that will be the incremented value
+of the previous one.
+
+        JOB LISTENERS
+In Spring Batch, Suppose before and after the execution of step, we want to perform some task..
+for example logging or etc. We can use Job Execution Listeners.
