@@ -1,5 +1,7 @@
 package com.springBatch.config;
 
+import com.springBatch.config.listener.FirstJobListeners;
+import com.springBatch.config.listener.FirstStepListener;
 import com.springBatch.config.service.SecondTasklet;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -24,6 +26,10 @@ public class SampleJob {
     private StepBuilderFactory stepBuilderFactory;
     @Autowired
     private SecondTasklet secondTasklet ;
+    @Autowired
+    private FirstJobListeners firstJobListeners ;
+    @Autowired
+    private FirstStepListener firstStepListener ;
 
     //        to have job, spring batch provides Job interface
     @Bean
@@ -33,6 +39,7 @@ public class SampleJob {
                 .incrementer(new RunIdIncrementer())
                 .start(firstStep())
                 .next(secondStep())
+                .listener(firstJobListeners)
                 .build();
     }
 
@@ -40,6 +47,7 @@ public class SampleJob {
         System.out.println("Inside First Step");
         return stepBuilderFactory.get("First Step")
                 .tasklet(firstTask())
+                .listener(firstStepListener)
                 .build();
     }
     private Step secondStep() {
@@ -54,6 +62,7 @@ public class SampleJob {
             @Override
             public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
                 System.out.println("This is the first TASKLET Step");
+                log.info("Step Execution COntext = {}", chunkContext.getStepContext().getStepExecutionContext());
                 return RepeatStatus.FINISHED; // If Continuable, it will run repeatedly
             }
         };
@@ -68,3 +77,5 @@ public class SampleJob {
 //        };
 //    }
 }
+
+START FROM VIDEO 21
