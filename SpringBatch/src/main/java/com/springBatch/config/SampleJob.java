@@ -16,8 +16,11 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.database.JdbcCursorItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
 import javax.sql.DataSource;
@@ -41,8 +44,22 @@ public class SampleJob {
     private FirstItemProcessor firstItemProcessor ;
     @Autowired
     private FirstItemWriter firstItemWriter ;
-    @Autowired
-    private DataSource dataSource; // to read from SQL data base.
+//    @Autowired
+//    private DataSource dataSource; // to read from SQL data base.
+
+    @Bean
+    @Primary // spring batch should use this for metadata-store
+    @ConfigurationProperties(prefix = "spring.datasource") // chcek app.props prefixes.
+    public DataSource dataSource(){
+        // Hae to create bean using this. As we have used custom datasource. Cant use the above one
+        return DataSourceBuilder.create().build() ;
+    }
+    @Bean
+    @ConfigurationProperties(prefix = "spring.universitydatasource")
+    public DataSource universityDataSource(){
+        // Hae to create bean using this. As we have used custom datasource. Cant use the above one
+        return DataSourceBuilder.create().build() ;
+    }
 
     //    to have job, spring batch provides Job interface
 //    @Bean
@@ -112,7 +129,7 @@ public class SampleJob {
 
     public JdbcCursorItemReader<Students> jdbcCursorItemReader() {
         JdbcCursorItemReader<Students> jdbcCursorItemReader = new JdbcCursorItemReader<>();
-        jdbcCursorItemReader.setDataSource(dataSource);
+        jdbcCursorItemReader.setDataSource(universityDataSource());
         jdbcCursorItemReader.setSql("select id, first_name as firstName, last_name as lastName, email from students ");
         jdbcCursorItemReader.setRowMapper(new BeanPropertyRowMapper<>(Students.class));
         jdbcCursorItemReader.setCurrentItemCount(2); // Skip first 2 records from TOP OR start from 3rd record from TOP.
