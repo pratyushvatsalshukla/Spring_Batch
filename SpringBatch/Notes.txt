@@ -74,3 +74,7 @@ of the previous one.
         JOB LISTENERS
 In Spring Batch, Suppose before and after the execution of step, we want to perform some task..
 for example logging or etc. We can use Job Execution Listeners.
+
+        CHUNK ORIENTED STEP
+Here we have 3 steps, Item Reader, Item Processor and Item Reader
+How Chunk Oriented Steps Work ?
