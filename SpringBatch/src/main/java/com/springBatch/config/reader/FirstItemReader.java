@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 @Slf4j
 public class FirstItemReader implements ItemReader<Integer> {
     // Responsible for reading record from souce
-    List<Integer> list = Stream.iterate(1, x -> x + 1).limit(10).toList();
+    List<Integer> list = Stream.iterate(1, x -> x + 1).limit(50).toList();
     int i = 0;
 
     @Override
@@ -27,6 +27,7 @@ public class FirstItemReader implements ItemReader<Integer> {
             return item;
         }
         item = 0;
+        log.info("Now Returning Null");
         return null; // no more records to read.
     }
 }
