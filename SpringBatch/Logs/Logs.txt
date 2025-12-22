@@ -1,0 +1,65 @@
+15:23:15.110 [Thread-0] DEBUG org.springframework.boot.devtools.restart.classloader.RestartClassLoader - Created RestartClassLoader org.springframework.boot.devtools.restart.classloader.RestartClassLoader@5ef169d2
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::               (v2.7.10)
+
+2025-12-22 15:23:15.710  INFO 20360 --- [  restartedMain] c.s.SpringBatch.SpringBatchApplication   : Starting SpringBatchApplication using Java 22.0.2 on Pratyush with PID 20360 (E:\Spring\SpringBatch\target\classes started by praty in E:\Spring\SpringBatch)
+2025-12-22 15:23:15.712  INFO 20360 --- [  restartedMain] c.s.SpringBatch.SpringBatchApplication   : No active profile set, falling back to 1 default profile: "default"
+2025-12-22 15:23:15.799  INFO 20360 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-12-22 15:23:16.862  INFO 20360 --- [  restartedMain] com.springBatch.config.SampleJob         : Inside Second Job For CHUNK Oriented Step
+2025-12-22 15:23:16.979  INFO 20360 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-12-22 15:23:17.408  INFO 20360 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-12-22 15:23:17.565  INFO 20360 --- [  restartedMain] o.s.b.c.r.s.JobRepositoryFactoryBean     : No database type set, using meta data indicating: POSTGRES
+2025-12-22 15:23:17.851  INFO 20360 --- [  restartedMain] o.s.b.c.l.support.SimpleJobLauncher      : No TaskExecutor has been set, defaulting to synchronous executor.
+2025-12-22 15:23:18.066  INFO 20360 --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-12-22 15:23:18.104  INFO 20360 --- [  restartedMain] c.s.SpringBatch.SpringBatchApplication   : Started SpringBatchApplication in 2.981 seconds (JVM running for 3.668)
+2025-12-22 15:23:18.107  INFO 20360 --- [  restartedMain] o.s.b.a.b.JobLauncherApplicationRunner   : Running default command line with: [run=two]
+2025-12-22 15:23:18.257  INFO 20360 --- [  restartedMain] o.s.b.c.l.support.SimpleJobLauncher      : Job: [SimpleJob: [name=Second Job]] launched with the following parameters: [{currentTime=1766387997340, run.id=10, run=two}]
+2025-12-22 15:23:18.294  INFO 20360 --- [  restartedMain] o.s.batch.core.job.SimpleStepHandler     : Executing step: [First Chunk Step ]
+2025-12-22 15:23:18.329  INFO 20360 --- [  restartedMain] c.s.config.writer.FirstItemWriter        : Inside Item Writer 
+2025-12-22 15:23:18.376  INFO 20360 --- [  restartedMain] c.s.config.writer.FirstItemWriter        : {
+  "id" : 3,
+  "firstName" : "Peter",
+  "lastName" : "Mark",
+  "email" : "peter@gmail.com"
+}
+2025-12-22 15:23:18.376  INFO 20360 --- [  restartedMain] c.s.config.writer.FirstItemWriter        : {
+  "id" : 4,
+  "firstName" : "Martin",
+  "lastName" : "Smith",
+  "email" : "martin@gmail.com"
+}
+2025-12-22 15:23:18.376  INFO 20360 --- [  restartedMain] c.s.config.writer.FirstItemWriter        : {
+  "id" : 5,
+  "firstName" : "Raj",
+  "lastName" : "Patel",
+  "email" : "raj@gmail.com"
+}
+2025-12-22 15:23:18.384  INFO 20360 --- [  restartedMain] c.s.config.writer.FirstItemWriter        : Inside Item Writer 
+2025-12-22 15:23:18.386  INFO 20360 --- [  restartedMain] c.s.config.writer.FirstItemWriter        : {
+  "id" : 6,
+  "firstName" : "Virat",
+  "lastName" : "Yadav",
+  "email" : "virat@gmail.com"
+}
+2025-12-22 15:23:18.386  INFO 20360 --- [  restartedMain] c.s.config.writer.FirstItemWriter        : {
+  "id" : 7,
+  "firstName" : "Prabhas",
+  "lastName" : "Shirke",
+  "email" : "prabhas@gmail.com"
+}
+2025-12-22 15:23:18.386  INFO 20360 --- [  restartedMain] c.s.config.writer.FirstItemWriter        : {
+  "id" : 8,
+  "firstName" : "Tina",
+  "lastName" : "Kapoor",
+  "email" : "tina@gmail.com"
+}
+2025-12-22 15:23:18.394  INFO 20360 --- [  restartedMain] o.s.batch.core.step.AbstractStep         : Step: [First Chunk Step ] executed in 100ms
+2025-12-22 15:23:18.404  INFO 20360 --- [  restartedMain] o.s.b.c.l.support.SimpleJobLauncher      : Job: [SimpleJob: [name=Second Job]] completed with the following parameters: [{currentTime=1766387997340, run.id=10, run=two}] and the following status: [COMPLETED] in 123ms
+2025-12-22 15:23:18.430  INFO 20360 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-12-22 15:23:18.444  INFO 20360 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
