@@ -2,7 +2,10 @@ package com.springBatch.config;
 
 import com.springBatch.config.listener.FirstJobListeners;
 import com.springBatch.config.listener.FirstStepListener;
+import com.springBatch.config.processor.FirstItemProcessor;
+import com.springBatch.config.reader.FirstItemReader;
 import com.springBatch.config.service.SecondTasklet;
+import com.springBatch.config.writer.FirstItemWriter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -30,9 +33,15 @@ public class SampleJob {
     private FirstJobListeners firstJobListeners ;
     @Autowired
     private FirstStepListener firstStepListener ;
+    @Autowired
+    private FirstItemReader firstItemReader ;
+    @Autowired
+    private FirstItemProcessor firstItemProcessor ;
+    @Autowired
+    private FirstItemWriter firstItemWriter ;
 
-    //        to have job, spring batch provides Job interface
-//    @Bean
+    //    to have job, spring batch provides Job interface
+    //    @Bean
     public Job firstJob() {
         System.out.println("Inside First Job");
         return jobBuilderFactory.get("First Job")
@@ -48,6 +57,8 @@ public class SampleJob {
         log.info("Inside Second Job For CHUNK Oriented Step");
         return jobBuilderFactory.get("Second Job")
                 .incrementer(new RunIdIncrementer())
+                .start(firstChunkStep())
+                .next(secondStep())
                 .build() ;
     }
 
@@ -63,6 +74,14 @@ public class SampleJob {
         return stepBuilderFactory.get("Second Step")
                 .tasklet(secondTasklet)
                 .build();
+    }
+    private Step firstChunkStep(){
+        return stepBuilderFactory.get("First Chunk Step ")
+                .<Integer,Long>chunk(3)
+                .reader(firstItemReader)
+                .processor(firstItemProcessor)
+                .writer(firstItemWriter)
+                .build() ;
     }
 
     private Tasklet firstTask() {
@@ -86,4 +105,4 @@ public class SampleJob {
 //    }
 }
 
-START FROM VIDEO 21
+//START FROM VIDEO 21
