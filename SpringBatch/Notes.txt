@@ -78,3 +78,6 @@ for example logging or etc. We can use Job Execution Listeners.
         CHUNK ORIENTED STEP
 Here we have 3 steps, Item Reader, Item Processor and Item Reader
 How Chunk Oriented Steps Work ?
+
+In the item processor, we earlier had to implement the ItemRead<Input Type, OutputType>
+But in later versions, we do not have to give the type Parameters.
