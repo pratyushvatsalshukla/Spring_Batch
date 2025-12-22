@@ -32,7 +32,7 @@ public class SampleJob {
     private FirstStepListener firstStepListener ;
 
     //        to have job, spring batch provides Job interface
-    @Bean
+//    @Bean
     public Job firstJob() {
         System.out.println("Inside First Job");
         return jobBuilderFactory.get("First Job")
@@ -41,6 +41,14 @@ public class SampleJob {
                 .next(secondStep())
                 .listener(firstJobListeners)
                 .build();
+    }
+
+    @Bean
+    public Job secondJob(){
+        log.info("Inside Second Job For CHUNK Oriented Step");
+        return jobBuilderFactory.get("Second Job")
+                .incrementer(new RunIdIncrementer())
+                .build() ;
     }
 
     private Step firstStep() {
