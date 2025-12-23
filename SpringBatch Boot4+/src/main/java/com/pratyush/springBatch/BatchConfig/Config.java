@@ -1,5 +1,6 @@
 package com.pratyush.springBatch.BatchConfig;
 
+import com.pratyush.springBatch.BatchConfig.Listeners.StudentSkipListener;
 import com.pratyush.springBatch.BatchConfig.Processor.FirstItemProcessor;
 //import com.pratyush.springBatch.BatchConfig.Reader.StudentItemReader;
 import com.pratyush.springBatch.BatchConfig.Writer.StudentWriter;
@@ -31,6 +32,8 @@ public class Config {
     @Autowired
     private StudentWriter studentWriter ;
     @Autowired
+    private StudentSkipListener studentSkipListener ;
+    @Autowired
     DataSource dataSource ;
 
     @Bean
@@ -50,6 +53,10 @@ public class Config {
                 .reader(studentItemReader())
                 .processor(studentProcessor)
                 .writer(studentWriter)
+                .faultTolerant()
+                .skip(InterruptedException.class)
+                .skipLimit(10)
+                .listener(studentSkipListener)
                 .transactionManager(transactionManager)
                 .build() ;
     }
