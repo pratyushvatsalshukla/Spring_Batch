@@ -10,17 +10,17 @@ import org.springframework.stereotype.Component;
 public class JobRunner implements CommandLineRunner {
 
     private final JobLauncher jobLauncher;
-    private final Job studentJob;
+    private final Job sampleJob;
 
-    public JobRunner(JobLauncher jobLauncher, Job studentJob) {
+    public JobRunner(JobLauncher jobLauncher, Job sampleJob) {
         this.jobLauncher = jobLauncher;
-        this.studentJob = studentJob;
+        this.sampleJob = sampleJob;
     }
 
     @Override
     public void run(String... args) throws Exception {
         jobLauncher.run(
-                studentJob,
+                sampleJob,
                 new JobParametersBuilder()
                         .addLong("run.id", System.currentTimeMillis())
                         .toJobParameters()
