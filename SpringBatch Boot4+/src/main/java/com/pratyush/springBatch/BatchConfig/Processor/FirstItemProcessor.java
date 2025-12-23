@@ -12,7 +12,10 @@ public class FirstItemProcessor implements ItemProcessor<Students,Students> {
     @Override
     public Students process(Students item) throws Exception {
         ObjectMapper mapper = new ObjectMapper() ;
-        log.info("Student : [{}]",mapper.writerWithDefaultPrettyPrinter().writeValueAsString(item));
+        if(item.getFirstName().equalsIgnoreCase("peter")){
+            throw new InterruptedException() ;
+        }
+//        log.info("Student : [{}]",mapper.writerWithDefaultPrettyPrinter().writeValueAsString(item));
         return item;
     }
 }
