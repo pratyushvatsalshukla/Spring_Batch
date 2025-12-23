@@ -9,13 +9,15 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @Slf4j
 public class FirstItemProcessor implements ItemProcessor<Students,Students> {
+    ObjectMapper mapper = new ObjectMapper() ;
     @Override
     public Students process(Students item) throws Exception {
-        ObjectMapper mapper = new ObjectMapper() ;
+        item.setFirstName(item.getFirstName().toUpperCase());
+        log.info("Student : [{}]",mapper.writerWithDefaultPrettyPrinter().writeValueAsString(item));
+
         if(item.getFirstName().equalsIgnoreCase("peter")){
             throw new InterruptedException() ;
         }
-//        log.info("Student : [{}]",mapper.writerWithDefaultPrettyPrinter().writeValueAsString(item));
         return item;
     }
 }
